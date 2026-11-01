@@ -12,7 +12,7 @@ const userRoutes = require('./routes/users');
 const DEFAULT_PORT = 8128;
 
 function allowedOrigins() {
-  const raw = process.env.CORS_ORIGIN || 'https://user.admin.top';
+  const raw = process.env.CORS_ORIGIN || 'https://user.yunikon.top';
   return raw
     .split(',')
     .map((item) => item.trim())
@@ -38,7 +38,7 @@ function corsOptions() {
 
 function createApp() {
   const app = express();
-  // 前面是 user.admin.top 的反向代理时，信任一层转发头。
+  // 前面是 user.yunikon.top 的反向代理时，信任一层转发头。
   app.set('trust proxy', 1);
   app.disable('x-powered-by');
   app.use(cors(corsOptions()));
