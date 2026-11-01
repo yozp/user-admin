@@ -12,6 +12,13 @@ const password = ref('')
 const loading = ref(false)
 const error = ref('')
 
+function safeInternalPath(value) {
+  if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//')) {
+    return '/users'
+  }
+  return value
+}
+
 async function onSubmit() {
   error.value = ''
   if (!username.value.trim() || !password.value) {
@@ -21,9 +28,12 @@ async function onSubmit() {
   loading.value = true
   try {
     const data = await login(username.value.trim(), password.value)
+    if (!data?.token) {
+      error.value = '登录响应缺少 token'
+      return
+    }
     setAuth(data.token, data.user)
-    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/users'
-    await router.replace(redirect)
+    await router.replace(safeInternalPath(route.query.redirect))
   } catch (e) {
     error.value = e.message || '登录失败'
   } finally {

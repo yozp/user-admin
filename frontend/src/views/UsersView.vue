@@ -33,7 +33,12 @@ async function loadUsers() {
   listLoading.value = true
   try {
     const data = await listUsers()
-    users.value = Array.isArray(data) ? data : []
+    if (!Array.isArray(data)) {
+      users.value = []
+      listError.value = '用户列表格式不正确'
+      return
+    }
+    users.value = data
   } catch (e) {
     users.value = []
     listError.value = e.message || '加载用户列表失败'
