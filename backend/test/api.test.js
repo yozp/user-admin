@@ -14,7 +14,7 @@ const dbPath = path.join(
 
 process.env.JWT_SECRET = 'test-secret-value';
 process.env.DB_PATH = dbPath;
-process.env.CORS_ORIGIN = 'https://user.admin.top';
+process.env.CORS_ORIGIN = 'https://user.yunikon.top';
 process.env.NODE_ENV = 'test';
 delete process.env.PORT;
 
@@ -106,13 +106,13 @@ test('auth and user CRUD', async () => {
 
     const cors = await fetch(`${base}/api/users`, {
       headers: {
-        Origin: 'https://user.admin.top',
+        Origin: 'https://user.yunikon.top',
         Authorization: `Bearer ${token}`,
       },
     });
     assert.strictEqual(
       cors.headers.get('access-control-allow-origin'),
-      'https://user.admin.top'
+      'https://user.yunikon.top'
     );
 
     const blocked = await fetch(`${base}/api/health`, {

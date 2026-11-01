@@ -2,7 +2,7 @@
 
 Node.js + Express + SQLite（better-sqlite3）+ JWT + bcrypt。默认端口 **8128**。
 
-浏览器只访问 `https://user.admin.top`。由反向代理把 `/api` 转到本服务，前端无需知道上游端口。本地开发时，Vite 已将 `/api` 代理到 `http://localhost:8128`。
+浏览器只访问 `https://user.yunikon.top`。由反向代理把 `/api` 转到本服务，前端无需知道上游端口。本地开发时，Vite 已将 `/api` 代理到 `http://localhost:8128`。
 
 ## 安装与启动
 
@@ -32,7 +32,7 @@ npm test
 | `JWT_SECRET` | 签发令牌的密钥。生产环境必须改成足够长的随机字符串 | `change-me-to-a-long-random-string` |
 | `PORT` | 监听端口 | `8128` |
 | `DB_PATH` | SQLite 文件路径，相对路径相对于 `backend/` | `data/users.db` |
-| `CORS_ORIGIN` | 允许的浏览器来源，逗号分隔 | `https://user.admin.top` |
+| `CORS_ORIGIN` | 允许的浏览器来源，逗号分隔 | `https://user.yunikon.top` |
 
 `NODE_ENV=production` 且 `JWT_SECRET` 为空或仍是示例值时，进程会拒绝启动。
 
@@ -44,7 +44,7 @@ npm test
 
 ```nginx
 server {
-    server_name user.admin.top;
+    server_name user.yunikon.top;
 
     location /api/ {
         proxy_pass http://127.0.0.1:8128;
@@ -55,7 +55,7 @@ server {
 }
 ```
 
-服务已 `trust proxy`，并默认允许来源 `https://user.admin.top`。同源反代不依赖 CORS；若前端与 API 不同源，把来源写入 `CORS_ORIGIN`。
+服务已 `trust proxy`，并默认允许来源 `https://user.yunikon.top`。同源反代不依赖 CORS；若前端与 API 不同源，把来源写入 `CORS_ORIGIN`。在 TLS 启用之前，于 `.env` 中设置 `CORS_ORIGIN=http://user.yunikon.top`（与当前站点协议一致）；证书就绪后改回 `https://user.yunikon.top`。
 
 ## API
 
